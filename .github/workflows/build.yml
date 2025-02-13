@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch: #permite a execucao direto no github actions no site do github
 
 jobs:
   build:
