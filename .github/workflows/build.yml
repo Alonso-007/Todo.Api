@@ -1,0 +1,28 @@
+name: Build Porjects
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build solution
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+
+      - name: Build api
+        run: |
+          dotnet restore ./Todo.Api.sln
+          dotnet build --no-restore ./Todo.Api.sln
