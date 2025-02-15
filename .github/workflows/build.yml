@@ -25,7 +25,13 @@ jobs:
           cache: true
           cache-dependency-path: ./src/api/Todo.Api/packages.lock.json
 
-      - name: Build api
+      - name: Build and Test
         run: |
           dotnet restore ./Todo.Api.sln
           dotnet build --no-restore ./Todo.Api.sln
+          dotnet test ./Todo.Api.sln --no-restore --no-build --logger trx --results-directory "TestResults"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dotnet-test-results
+          path: TestResults
